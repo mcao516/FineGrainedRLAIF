@@ -38,7 +38,7 @@ from my_longformer import LongformerForTokenClassification
 logger = logging.getLogger(__name__)
 
 os.environ["WANDB_SILENT"] = "true"
-os.environ["WANDB_PROJECT"] = "RM"
+os.environ["WANDB_PROJECT"] = "FineGrainedRLAIF-RM"
 
 
 IGNORE_TAG = "Ignore"

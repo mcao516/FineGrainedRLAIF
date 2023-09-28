@@ -39,11 +39,21 @@ def log_info(s):
 # load parameters
 parser = argparse.ArgumentParser()
 parser.add_argument("--config", required=True, type=str, help="path to config file")
+parser.add_argument("--rm_rel_ckpt", required=True, type=str, help="path to relevance reward model checkpoint")
+parser.add_argument("--rm_fact_ckpt", required=True, type=str, help="path to factuality reward model checkpoint")
+parser.add_argument("--rm_comp_ckpt", required=True, type=str, help="path to completeness reward model checkpoint")
+parser.add_argument("--mean_std_file_path", required=True, type=str, help="path to mean and std file")
+parser.add_argument("--save_dir", required=True, type=str, help="path to save model")
 args = parser.parse_args()
 # load yaml file
 with open(args.config) as f:
     args =yaml.safe_load(f)
 
+    # overwrite ckpt path
+    args['reward']['relevance_model']['ckpt'] = args.rm_rel_ckpt
+    args['reward']['factuality_model']['ckpt'] = args.rm_fact_ckpt
+    args['reward']['completeness_model']['ckpt'] = args.rm_comp_ckpt
+    args['logging']['save_dir'] = args.save_dir
 
 # prepare data
 class TextGenDataset(Dataset):
@@ -129,7 +139,20 @@ class TextGenDataset(Dataset):
         return result
     
 
+def read_mean_std(file_path):
+    with open(file_path, 'r') as f:
+        mean = float(f.readline().strip())
+        std = float(f.readline().strip())
+    return mean, std
+
+
 def main():
+    # read mean and std
+    mean, std = read_mean_std(args.mean_std_file_path)
+    args['reward']['completeness_model']['mean'] = mean
+    args['reward']['completeness_model']['std'] = std
+    print("- mean: ", mean)
+    print("- std: ", std)
 
     # set seed
     set_seed(args['train']['seed'], args['train']['cuda_deterministic'])

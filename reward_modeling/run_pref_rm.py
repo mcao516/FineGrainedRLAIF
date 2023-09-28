@@ -23,7 +23,7 @@ from my_longformer import LongformerForSequenceClassification
 
 logger = logging.getLogger(__name__)
 os.environ["WANDB_SILENT"] = "true"
-os.environ["WANDB_PROJECT"] = "RM"
+os.environ["WANDB_PROJECT"] = "FineGrainedRLAIF-RM"
 
 
 class PairDataCollatorWithPadding:
