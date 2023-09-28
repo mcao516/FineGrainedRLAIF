@@ -1,7 +1,9 @@
+conda activate fgrlaif
+
 echo "========== SETTINGS =========="
 set -e
-DATA_FOLDER=llm_data
-OUTPUT_FOLDER_NAME=llm_data2
+DATA_FOLDER=toy
+OUTPUT_FOLDER_NAME=test
 
 
 echo "========== REL REWARD MODELING =========="
