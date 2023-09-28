@@ -47,13 +47,17 @@ parser.add_argument("--save_dir", required=True, type=str, help="path to save mo
 args = parser.parse_args()
 # load yaml file
 with open(args.config) as f:
+    rm_rel_ckpt = args.rm_rel_ckpt
+    rm_fact_ckpt = args.rm_fact_ckpt
+    rm_comp_ckpt = args.rm_comp_ckpt
+    save_dir = args.save_dir
     args =yaml.safe_load(f)
 
     # overwrite ckpt path
-    args['reward']['relevance_model']['ckpt'] = args.rm_rel_ckpt
-    args['reward']['factuality_model']['ckpt'] = args.rm_fact_ckpt
-    args['reward']['completeness_model']['ckpt'] = args.rm_comp_ckpt
-    args['logging']['save_dir'] = args.save_dir
+    args['reward']['relevance_model']['ckpt'] = rm_rel_ckpt
+    args['reward']['factuality_model']['ckpt'] = rm_fact_ckpt
+    args['reward']['completeness_model']['ckpt'] = rm_comp_ckpt
+    args['logging']['save_dir'] = save_dir
 
 # prepare data
 class TextGenDataset(Dataset):
