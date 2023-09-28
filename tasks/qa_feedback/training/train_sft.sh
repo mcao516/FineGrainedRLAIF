@@ -1,4 +1,4 @@
-torchrun --nproc_per_node 1 --standalone --nnodes=1 ./sft/run_sft.py \
+torchrun --nproc_per_node 4 --standalone --nnodes=1 ./sft/run_sft.py \
     --model_name_or_path t5-large \
     --do_train \
     --do_eval \
