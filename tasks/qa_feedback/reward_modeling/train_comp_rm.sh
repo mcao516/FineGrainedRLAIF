@@ -1,13 +1,14 @@
 set -e
-
+DATA_FOLDER=llm_data
+OUTPUT_DIR=./tasks/qa_feedback/model_outputs/comp_rm
 
 # train reward model for COMP
 torchrun --nproc_per_node 2 --standalone --nnodes=1 ./reward_modeling/run_pref_rm.py \
                 --model_name_or_path allenai/longformer-base-4096 \
-                --train_file ./tasks/qa_feedback/data/COMP_sequence/train.json \
-                --validation_file ./tasks/qa_feedback/data/COMP_sequence/dev.json \
-                --test_file ./tasks/qa_feedback/data/COMP_sequence/dev.json \
-                --output_dir ./tasks/qa_feedback/model_outputs/comp_rm \
+                --train_file ./tasks/qa_feedback/${DATA_FOLDER}/COMP_sequence/train.json \
+                --validation_file ./tasks/qa_feedback/${DATA_FOLDER}/COMP_sequence/dev.json \
+                --test_file ./tasks/qa_feedback/${DATA_FOLDER}/COMP_sequence/dev.json \
+                --output_dir $OUTPUT_DIR \
                 --do_train \
                 --do_eval \
                 --bf16 \
@@ -33,10 +34,10 @@ torchrun --nproc_per_node 2 --standalone --nnodes=1 ./reward_modeling/run_pref_r
 
 # inference for getting mean std of COMP
 torchrun --nproc_per_node 1 --standalone --nnodes=1 ./reward_modeling/run_pref_rm.py \
-                --model_name_or_path ./tasks/qa_feedback/model_outputs/comp_rm \
-                --validation_file ./tasks/qa_feedback/data/COMP_sequence/train.json \
-                --test_file ./tasks/qa_feedback/data/COMP_sequence/train.json \
-                --output_dir ./tasks/qa_feedback/model_outputs/comp_rm \
+                --model_name_or_path $OUTPUT_DIR \
+                --validation_file ./tasks/qa_feedback/${DATA_FOLDER}/COMP_sequence/train.json \
+                --test_file ./tasks/qa_feedback/${DATA_FOLDER}/COMP_sequence/train.json \
+                --output_dir $OUTPUT_DIR \
                 --do_predict \
                 --bf16 \
                 --per_device_eval_batch_size 128 \

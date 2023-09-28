@@ -1,12 +1,14 @@
 set -e
+DATA_FOLDER=llm_data
+OUTPUT_DIR=./tasks/qa_feedback/model_outputs/fact_rm
 
 # train reward model for F-ERR_sentence
 torchrun --nproc_per_node 1 --standalone --nnodes=1 ./reward_modeling/run_fg_rm.py \
                 --model_name_or_path allenai/longformer-base-4096 \
-                --train_file ./tasks/qa_feedback/data/F-ERR_sentence/train.json \
-                --validation_file ./tasks/qa_feedback/data/F-ERR_sentence/dev.json \
-                --test_file ./tasks/qa_feedback/data/F-ERR_sentence/dev.json \
-                --output_dir ./tasks/qa_feedback/model_outputs/fact_rm \
+                --train_file ./tasks/qa_feedback/${DATA_FOLDER}/F-ERR_sentence/train.json \
+                --validation_file ./tasks/qa_feedback/${DATA_FOLDER}/F-ERR_sentence/dev.json \
+                --test_file ./tasks/qa_feedback/${DATA_FOLDER}/F-ERR_sentence/dev.json \
+                --output_dir $OUTPUT_DIR \
                 --do_train \
                 --do_eval \
                 --do_predict \
