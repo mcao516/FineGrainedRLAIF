@@ -107,7 +107,7 @@ torchrun --nproc_per_node 4 --standalone --nnodes=1 ./reward_modeling/run_pref_r
 
 # inference for getting mean std of COMP
 torchrun --nproc_per_node 4 --standalone --nnodes=1 ./reward_modeling/run_pref_rm.py \
-                --model_name_or_path $OUTPUT_DIR \
+                --model_name_or_path $COMP_OUTPUT_DIR \
                 --validation_file ./tasks/qa_feedback/${DATA_FOLDER}/COMP_sequence/train.json \
                 --test_file ./tasks/qa_feedback/${DATA_FOLDER}/COMP_sequence/train.json \
                 --output_dir $COMP_OUTPUT_DIR \
