@@ -1,3 +1,6 @@
+.ipynb_checkpoints/
+create_toy_dataset.ipynb
+
 __pycache__/
 */__pycache__/
 tasks/qa_feedback/*/__pycache__/
