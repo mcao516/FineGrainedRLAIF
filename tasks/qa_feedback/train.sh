@@ -3,6 +3,8 @@ set -e
 DATA_FOLDER=toy
 OUTPUT_FOLDER_NAME=test
 
+echo $DATA_FOLDER
+echo $OUTPUT_FOLDER_NAME
 
 echo "========== DATE PREPROCESSING =========="
 python tasks/qa_feedback/reward_modeling/create_rel_fact_rm_files.py --feedback_level subsentence --error_category NF-ERR --ignore_context --data_dir ./tasks/qa_feedback/${DATA_FOLDER}/
