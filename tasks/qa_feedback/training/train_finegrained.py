@@ -51,6 +51,7 @@ with open(args.config) as f:
     rm_fact_ckpt = args.rm_fact_ckpt
     rm_comp_ckpt = args.rm_comp_ckpt
     save_dir = args.save_dir
+    mean_std_file_path = args.mean_std_file_path
     args =yaml.safe_load(f)
 
     # overwrite ckpt path
@@ -58,6 +59,7 @@ with open(args.config) as f:
     args['reward']['factuality_model']['ckpt'] = rm_fact_ckpt
     args['reward']['completeness_model']['ckpt'] = rm_comp_ckpt
     args['logging']['save_dir'] = save_dir
+    args['mean_std_file_path'] = mean_std_file_path
 
 # prepare data
 class TextGenDataset(Dataset):
@@ -152,7 +154,7 @@ def read_mean_std(file_path):
 
 def main():
     # read mean and std
-    mean, std = read_mean_std(args.mean_std_file_path)
+    mean, std = read_mean_std(args['mean_std_file_path'])
     args['reward']['completeness_model']['mean'] = mean
     args['reward']['completeness_model']['std'] = std
     print("- mean: ", mean)
