@@ -11,7 +11,7 @@ torchrun --nproc_per_node 4 --standalone --nnodes=1 ./sft/run_sft.py \
     --output_dir ./tasks/qa_feedback/model_outputs/t5-large-1k-train \
     --overwrite_output_dir \
     --per_device_train_batch_size=4 \
-    --per_device_eval_batch_size=128 \
+    --per_device_eval_batch_size=32 \
     --predict_with_generate \
     --generation_max_length 200 \
     --save_total_limit 2 \
