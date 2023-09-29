@@ -113,7 +113,7 @@ torchrun --nproc_per_node 4 --standalone --nnodes=1 ./reward_modeling/run_pref_r
                 --output_dir $COMP_OUTPUT_DIR \
                 --do_predict \
                 --bf16 \
-                --per_device_eval_batch_size 64 \
+                --per_device_eval_batch_size 32 \
                 --max_seq_length 2048 \
                 --remove_unused_columns False \
                 --cal_score_mean_std True;
