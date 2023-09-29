@@ -86,7 +86,7 @@ torchrun --nproc_per_node 4 --standalone --nnodes=1 ./reward_modeling/run_pref_r
                 --do_eval \
                 --bf16 \
                 --max_steps 6000 \
-                --per_device_train_batch_size 6 \
+                --per_device_train_batch_size 4 \
                 --per_device_eval_batch_size 8 \
                 --eval_steps 200 \
                 --evaluation_strategy steps \
