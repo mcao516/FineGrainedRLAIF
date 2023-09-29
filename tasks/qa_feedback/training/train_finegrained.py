@@ -193,12 +193,12 @@ def main():
     
     # Load data
     log_info(f'Loading data ...')
-    train_dataset = TextGenDataset( 'train', tokenizer, accelerator=accelerator, folder_name=args.folder_name)
+    train_dataset = TextGenDataset( 'train', tokenizer, accelerator=accelerator, folder_name=args['folder_name'])
     # train ds is shuffled in its constructor
     train_dataloader = DataLoader(train_dataset, batch_size=args['train']['sampling_batch_size_per_card'], 
                                   shuffle=False, drop_last=True, collate_fn=train_dataset.collate_fn)
 
-    eval_dataset = TextGenDataset( 'dev',  tokenizer, accelerator=accelerator, length_limit=None, folder_name=args.folder_name)
+    eval_dataset = TextGenDataset( 'dev',  tokenizer, accelerator=accelerator, length_limit=None, folder_name=args['folder_name'])
     eval_dataloader = DataLoader(eval_dataset, batch_size=args['train']['sampling_batch_size_per_card'], 
                                  shuffle=False, drop_last=False, collate_fn=eval_dataset.collate_fn)
 
