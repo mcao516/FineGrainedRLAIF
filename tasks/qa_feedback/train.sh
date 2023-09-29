@@ -133,6 +133,7 @@ accelerate launch \
         --rm_fact_ckpt $FACT_OUTPUT_DIR \
         --rm_comp_ckpt $COMP_OUTPUT_DIR \
         --mean_std_file_path $COMP_OUTPUT_DIR/mean_std.txt \
-        --save_dir ./tasks/qa_feedback/model_outputs/${OUTPUT_FOLDER_NAME}/fine_grained/;
+        --save_dir ./tasks/qa_feedback/model_outputs/${OUTPUT_FOLDER_NAME}/fine_grained/ \
+        --folder_name $DATA_FOLDER;
 
 echo "========== DONE TRAINING ==========" 

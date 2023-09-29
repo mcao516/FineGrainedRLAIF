@@ -44,6 +44,7 @@ parser.add_argument("--rm_fact_ckpt", required=True, type=str, help="path to fac
 parser.add_argument("--rm_comp_ckpt", required=True, type=str, help="path to completeness reward model checkpoint")
 parser.add_argument("--mean_std_file_path", required=True, type=str, help="path to mean and std file")
 parser.add_argument("--save_dir", required=True, type=str, help="path to save model")
+parser.add_argument("--folder_name", default="data", type=str)
 args = parser.parse_args()
 # load yaml file
 with open(args.config) as f:
@@ -52,6 +53,7 @@ with open(args.config) as f:
     rm_comp_ckpt = args.rm_comp_ckpt
     save_dir = args.save_dir
     mean_std_file_path = args.mean_std_file_path
+    folder_name = args.folder_name
     args =yaml.safe_load(f)
 
     # overwrite ckpt path
@@ -60,17 +62,25 @@ with open(args.config) as f:
     args['reward']['completeness_model']['ckpt'] = rm_comp_ckpt
     args['logging']['save_dir'] = save_dir
     args['mean_std_file_path'] = mean_std_file_path
+    args['folder_name'] = folder_name
 
 # prepare data
 class TextGenDataset(Dataset):
-    def __init__(self, split, tokenizer, accelerator=None, length_limit=None):
+    def __init__(
+        self,
+        split,
+        tokenizer,
+        accelerator=None,
+        length_limit=None,
+        folder_name="data"
+    ):
         super().__init__()
         
         self.split = split
         self.dataset_fns = {
-            "train": "tasks/qa_feedback/data/train.json",
-            "dev": "tasks/qa_feedback/data/dev.json",
-            "test": "tasks/qa_feedback/data/test.json"
+            "train": f"tasks/qa_feedback/{folder_name}/train.json",
+            "dev": f"tasks/qa_feedback/{folder_name}/dev.json",
+            "test": f"tasks/qa_feedback/{folder_name}/test.json"
         }
         
         self.n_card = 1
@@ -183,12 +193,12 @@ def main():
     
     # Load data
     log_info(f'Loading data ...')
-    train_dataset = TextGenDataset( 'train', tokenizer, accelerator=accelerator)
+    train_dataset = TextGenDataset( 'train', tokenizer, accelerator=accelerator, folder_name=args.folder_name)
     # train ds is shuffled in its constructor
     train_dataloader = DataLoader(train_dataset, batch_size=args['train']['sampling_batch_size_per_card'], 
                                   shuffle=False, drop_last=True, collate_fn=train_dataset.collate_fn)
 
-    eval_dataset = TextGenDataset( 'dev',  tokenizer, accelerator=accelerator, length_limit=None)
+    eval_dataset = TextGenDataset( 'dev',  tokenizer, accelerator=accelerator, length_limit=None, folder_name=args.folder_name)
     eval_dataloader = DataLoader(eval_dataset, batch_size=args['train']['sampling_batch_size_per_card'], 
                                  shuffle=False, drop_last=False, collate_fn=eval_dataset.collate_fn)
 
