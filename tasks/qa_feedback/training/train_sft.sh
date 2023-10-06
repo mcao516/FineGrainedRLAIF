@@ -17,7 +17,7 @@ torchrun --nproc_per_node 4 --standalone --nnodes=1 ./sft/run_sft.py \
     --save_total_limit 2 \
     --load_best_model_at_end \
     --report_to wandb \
-    --metric_for_best_model rougeLsum
+    --metric_for_best_model rougeLsum;
 
 
 # Uncomment the following to train on full training dataset
