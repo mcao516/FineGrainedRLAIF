@@ -1,6 +1,7 @@
 set -e
 DATA_FOLDER=data
-OUTPUT_DIR=./tasks/qa_feedback/model_outputs/baseline_rm 
+OUTPUT_FOLDER_NAME=data
+OUTPUT_DIR=./tasks/qa_feedback/model_outputs/${OUTPUT_FOLDER_NAME}/baseline_rm 
 
 # train reward model for baseline
 torchrun --nproc_per_node 4 --standalone --nnodes=1 ./reward_modeling/run_pref_rm.py \
