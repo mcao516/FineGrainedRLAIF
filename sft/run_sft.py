@@ -36,7 +36,7 @@ from transformers.utils import is_offline_mode
 
 logger = logging.getLogger(__name__)
 os.environ["WANDB_SILENT"] = "true"
-os.environ["WANDB_PROJECT"] = "SFT"
+os.environ["WANDB_PROJECT"] = "FineGrainedRLAIF-SFT"
 
 try:
     nltk.data.find("tokenizers/punkt")
