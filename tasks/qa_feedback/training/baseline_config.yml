@@ -18,9 +18,9 @@ model:
 
 reward:
   baseline_model:
-    ckpt: ./tasks/qa_feedback/model_outputs/baseline_rm
-    mean: 0.9224057369138402
-    std: 1.5605590864042451
+    ckpt: ./tasks/qa_feedback/model_outputs/data/baseline_rm
+    mean: 0.1363
+    std: 1.1148
     bias: 0.0
     scale: 1.0
 
@@ -56,7 +56,7 @@ train:
 logging:
   run_name: baseline
   wandb_log: True
-  wandb_entity: your-wandb-username
-  wandb_project: RLHF
+  wandb_entity: caden
+  wandb_project: FineGrainedRLAIF-PPO
   log_interval: 1
-  save_dir: tasks/qa_feedback/model_outputs/baseline
+  save_dir: tasks/qa_feedback/model_outputs/data/baseline
