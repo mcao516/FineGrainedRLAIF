@@ -1,5 +1,5 @@
 set -e
-DATA_FOLDER=llm_train_human_dev
+DATA_FOLDER=data
 
 python tasks/qa_feedback/reward_modeling/create_rel_fact_rm_files.py --feedback_level subsentence --error_category NF-ERR --ignore_context --data_dir ./tasks/qa_feedback/${DATA_FOLDER}/
 python tasks/qa_feedback/reward_modeling/create_rel_fact_rm_files.py --feedback_level sentence --error_category F-ERR --data_dir ./tasks/qa_feedback/${DATA_FOLDER}/

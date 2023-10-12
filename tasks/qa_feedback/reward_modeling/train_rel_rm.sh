@@ -1,6 +1,6 @@
 set -e
-DATA_FOLDER=llm_train_human_dev
-OUTPUT_DIR=./tasks/qa_feedback/model_outputs/llm_train_human_dev/rel_rm
+DATA_FOLDER=data
+OUTPUT_DIR=./tasks/qa_feedback/model_outputs/${DATA_FOLDER}/rel_rm
 
 # train reward model for NF-ERR_subsentence
 torchrun --nproc_per_node 1 --standalone --nnodes=1 ./reward_modeling/run_fg_rm.py \
