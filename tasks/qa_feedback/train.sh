@@ -1,7 +1,7 @@
 echo "========== SETTINGS =========="
 set -e
 DATA_FOLDER=data
-OUTPUT_FOLDER_NAME=data2
+OUTPUT_FOLDER_NAME=data
 
 echo $DATA_FOLDER
 echo $OUTPUT_FOLDER_NAME
