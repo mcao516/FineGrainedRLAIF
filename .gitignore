@@ -1,4 +1,6 @@
 .ipynb_checkpoints/
+eval/
+fgrlhf_models/
 create_toy_dataset.ipynb
 
 __pycache__/
